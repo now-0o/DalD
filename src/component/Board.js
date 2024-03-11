@@ -27,8 +27,8 @@ function Board({ setData }) {
 
     try {
       const response = await axios.post("http://localhost:8080/content", {
-        type: typeValue,
-        status: statusValue,
+        typeId: typeValue,
+        statusId: statusValue,
         content: contentValue,
       });
 

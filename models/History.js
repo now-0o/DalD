@@ -1,7 +1,7 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../config/database");
 
-const History = sequelize.define("history", {
+const History = sequelize.define("histories", {
   id: {
     autoIncrement: true,
     primaryKey: true,

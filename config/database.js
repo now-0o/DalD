@@ -11,7 +11,6 @@ const sequelize = new Sequelize("DalD", "root", process.env.databasePassword, {
   port: 3306,
   define: {
     timestamps: true, // timestamps 활성화
-    underscored: true, // 컬럼명에서 snake_case 사용
   },
   timezone: "+09:00", // 타임존을 Asia/Seoul로 설정
 });
