@@ -1,0 +1,47 @@
+.headerWrap {
+  width: 100vw;
+  height: 60px;
+  background-color: var(--main);
+  display: flex;
+  justify-content: center;
+}
+
+header {
+  width: 1050px;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.appVersion {
+  color: white;
+  font-weight: 700;
+  font-size: 12px;
+}
+
+.logo {
+  width: 60px;
+}
+
+.searchBox {
+  width: 510px;
+  height: 35px;
+  display: flex;
+}
+
+.search {
+  outline: none;
+  border: none;
+  border-radius: 5px 0 0 5px;
+  width: 450px;
+  padding-left: 10px;
+}
+
+.filterBtn {
+  background-color: white;
+  border: 0;
+  border-left: 1px solid #c2c2c2;
+  border-radius: 0 5px 5px 0;
+  width: 50px;
+}
