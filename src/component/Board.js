@@ -1,11 +1,51 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./Board.css";
 
-function Board({ setData }) {
+function Board({
+  item,
+  setItem,
+  typeId,
+  setTypeId,
+  select,
+  selectedContentIds,
+  setSelectedContentIds,
+}) {
   const [type, setType] = useState("");
   const [status, setStatus] = useState("");
   const [content, setContent] = useState("");
+  const [itemId, setItemId] = useState("");
+
+  const toggleSelectedContent = (contentId) => {
+    if (select) {
+      setSelectedContentIds((prevIds) =>
+        prevIds.includes(contentId)
+          ? prevIds.filter((id) => id !== contentId)
+          : [...prevIds, contentId]
+      );
+    }
+  };
+
+  useEffect(() => {
+    if (!select) {
+      const contentDivs = document.querySelectorAll(".content");
+      contentDivs.forEach((div) => {
+        div.classList.remove("selected");
+      });
+      setSelectedContentIds([]);
+    }
+  }, [select]);
+
+  useEffect(() => {
+    const insetBtn = document.querySelector(".insert");
+
+    if (itemId !== "") {
+      insetBtn.innerHTML = "수정";
+      return;
+    }
+
+    insetBtn.innerHTML = "등록";
+  }, [itemId]);
 
   const insertCont = async () => {
     const typeValue = document.querySelector('[name="type"]').value;
@@ -26,13 +66,30 @@ function Board({ setData }) {
     }
 
     try {
-      const response = await axios.post("http://localhost:8080/content", {
+      if (itemId === "") {
+        const response = await axios.post("http://localhost:8080/content", {
+          typeId: typeValue,
+          statusId: statusValue,
+          content: contentValue,
+        });
+
+        if (response.data.success) {
+          setItem(response.data);
+          re_set();
+        }
+        return;
+      }
+      const response = await axios.put("http://localhost:8080/content", {
+        id: itemId,
         typeId: typeValue,
         statusId: statusValue,
         content: contentValue,
       });
 
-      console.log(response.data);
+      if (response.data.success) {
+        setItem(response.data);
+        re_set();
+      }
     } catch (error) {
       console.error("등록실패");
     }
@@ -42,18 +99,69 @@ function Board({ setData }) {
     setType("");
     setStatus("");
     setContent("");
+    setItemId("");
+  };
+
+  const setInput = (id, type, status, content) => {
+    setItemId(id);
+    setType(type);
+    setStatus(status);
+    setContent(content);
   };
 
   return (
     <div className="boardWrap">
-      <tab>
-        <div className="tabBtn normal">일반</div>
-        <div className="tabBtn food">음식</div>
-        <div className="tabBtn board">해외</div>
-      </tab>
+      <div className="tab">
+        <div
+          className={`tabBtn normal ${typeId === 10 ? "active" : ""}`}
+          data-type={10}
+          onClick={() => setTypeId(10)}
+        >
+          일반
+        </div>
+        <div
+          className={`tabBtn food ${typeId === 20 ? "active" : ""}`}
+          data-type={20}
+          onClick={() => setTypeId(20)}
+        >
+          음식
+        </div>
+        <div
+          className={`tabBtn board ${typeId === 30 ? "active" : ""}`}
+          data-type={30}
+          onClick={() => setTypeId(30)}
+        >
+          해외
+        </div>
+      </div>
 
       <main>
-        <div className="content"></div>
+        {item &&
+          item.data
+            .filter((con) => con.typeId === typeId)
+            .map((con) => (
+              <div
+                className={`content ${
+                  select
+                    ? selectedContentIds.includes(con.id)
+                      ? "selected"
+                      : ""
+                    : ""
+                }`}
+                key={con.id}
+                onClick={() => {
+                  setInput(con.id, con.typeId, con.statusId, con.content);
+                  toggleSelectedContent(con.id);
+                }}
+              >
+                <div className="contentTop">
+                  <span className="conTag" id={"s" + con.statusId}>
+                    {con.status.name}
+                  </span>
+                </div>
+                <div className="contentMain">{con.content}</div>
+              </div>
+            ))}
       </main>
 
       <form>

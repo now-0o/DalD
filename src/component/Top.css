@@ -12,6 +12,7 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
 }
 
 .appVersion {
@@ -20,14 +21,22 @@ header {
   font-size: 12px;
 }
 
+.logoBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 120px;
+}
+
 .logo {
   width: 60px;
 }
 
 .searchBox {
-  width: 510px;
+  width: 480px;
   height: 35px;
   display: flex;
+  justify-content: center;
 }
 
 .search {
@@ -44,4 +53,67 @@ header {
   border-left: 1px solid #c2c2c2;
   border-radius: 0 5px 5px 0;
   width: 50px;
+}
+
+.filterBox {
+  display: none;
+  flex-direction: column;
+  width: 130px;
+  height: 100px;
+  position: absolute;
+  background-color: white;
+  left: 61%;
+  bottom: -115px;
+  z-index: 9999;
+  border-radius: 5px;
+  justify-content: flex-start;
+  align-items: flex-end;
+  padding: 10px;
+  box-shadow: 0 0 8px 0 rgba(61, 61, 61, 0.329);
+}
+
+.filterCon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  font-size: 14px;
+}
+
+.topBtn {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  justify-content: center;
+}
+
+.topBtn div {
+  border-radius: 5px;
+  width: 50px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.select {
+  background-color: white;
+}
+
+.select:hover,
+.clicked {
+  background-color: #c9c9c9;
+  color: black;
+}
+
+.delBtn {
+  background-color: #db5a5a;
+  color: white;
+}
+
+.delBtn:hover {
+  background-color: #d34545;
 }

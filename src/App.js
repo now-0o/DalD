@@ -2,20 +2,84 @@ import "./App.css";
 import React, { useEffect, useState } from "react";
 import Top from "./component/Top.js";
 import Board from "./component/Board.js";
+import axios from "axios";
 
 function App() {
-  const [data, setData] = useState();
+  const [item, setItem] = useState();
+  const [select, setSelect] = useState();
+  const [typeId, setTypeId] = useState(10);
+  const [search, setSearch] = useState(10);
+  const [filter, setFilter] = useState({
+    s10: false,
+    s20: false,
+    s30: false,
+    s40: false,
+    s50: false,
+  });
+  const [selectedContentIds, setSelectedContentIds] = useState([]);
+
+  const handleFilterChange = (checkboxName) => {
+    setFilter((prevValues) => ({
+      ...prevValues,
+      [checkboxName]: !prevValues[checkboxName],
+    }));
+  };
 
   useEffect(() => {
-    fetch("http://localhost:8080/api")
-      .then((res) => res.json())
-      .then((data) => console.log(data));
-  }, [data]);
+    const searchItems = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:8080/content/search?content=${search}`
+        );
+
+        if (response.data.success) {
+          setItem(response.data);
+        }
+      } catch (error) {
+        console.error("검색 실패", error);
+      }
+    };
+
+    searchItems();
+  }, [search]);
+
+  useEffect(() => {
+    const getItems = async () => {
+      try {
+        const response = await axios.get("http://localhost:8080/content");
+
+        if (response.data.success) {
+          setItem(response.data);
+        }
+      } catch (error) {
+        console.error("데이터 불러오기 실패", error);
+      }
+    };
+
+    getItems();
+  }, []);
 
   return (
     <div className="App">
-      <Top />
-      <Board setData={setData} />
+      <Top
+        setItem={setItem}
+        setSearch={setSearch}
+        handleFilterChange={handleFilterChange}
+        filter={filter}
+        select={select}
+        setSelect={setSelect}
+        selectedContentIds={selectedContentIds}
+        setSelectedContentIds={setSelectedContentIds}
+      />
+      <Board
+        setItem={setItem}
+        item={item}
+        typeId={typeId}
+        setTypeId={setTypeId}
+        select={select}
+        selectedContentIds={selectedContentIds}
+        setSelectedContentIds={setSelectedContentIds}
+      />
     </div>
   );
 }
