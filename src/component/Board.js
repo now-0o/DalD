@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import "./Board.css";
 
@@ -26,15 +26,20 @@ function Board({
     }
   };
 
+  const setSelectedContentIdsCallback = useCallback(
+    (ids) => setSelectedContentIds(ids),
+    [setSelectedContentIds]
+  );
+
   useEffect(() => {
     if (!select) {
       const contentDivs = document.querySelectorAll(".content");
       contentDivs.forEach((div) => {
         div.classList.remove("selected");
       });
-      setSelectedContentIds([]);
+      setSelectedContentIdsCallback([]);
     }
-  }, [select]);
+  }, [select, setSelectedContentIdsCallback]);
 
   useEffect(() => {
     const insetBtn = document.querySelector(".insert");

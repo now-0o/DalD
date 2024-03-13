@@ -29,7 +29,7 @@ function App() {
     const searchItems = async () => {
       try {
         const response = await axios.get(
-          `http://3.34.220.192:8080/content/search?content=${search}`
+          `http://3.34.220.192/content/search?content=${search}`
         );
 
         if (response.data.success) {
@@ -46,7 +46,7 @@ function App() {
   useEffect(() => {
     const getItems = async () => {
       try {
-        const response = await axios.get("http://3.34.220.192:8080/content");
+        const response = await axios.get("http://3.34.220.192/content");
 
         if (response.data.success) {
           setItem(response.data);
