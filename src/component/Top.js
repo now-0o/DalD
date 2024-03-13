@@ -12,13 +12,18 @@ function Top({
   setSelectedContentIds,
   setItem,
 }) {
+  const host =
+    window.location.hostname === "localhost"
+      ? "http://3.34.220.192:8080"
+      : "api";
+
   const deleteContent = async () => {
     if (selectedContentIds.length === 0) {
       alert("삭제할 컨텐츠를 선택해주세요!");
       return;
     }
     try {
-      const response = await axios.delete("http://3.34.220.192:8080/content", {
+      const response = await axios.delete(`${host}/content`, {
         data: { ids: selectedContentIds },
       });
 

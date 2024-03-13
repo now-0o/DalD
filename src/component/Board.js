@@ -16,6 +16,11 @@ function Board({
   const [content, setContent] = useState("");
   const [itemId, setItemId] = useState("");
 
+  const host =
+    window.location.hostname === "localhost"
+      ? "http://3.34.220.192:8080"
+      : "api";
+
   const toggleSelectedContent = (contentId) => {
     if (select) {
       setSelectedContentIds((prevIds) =>
@@ -72,7 +77,7 @@ function Board({
 
     try {
       if (itemId === "") {
-        const response = await axios.post("http://3.34.220.192:8080/content", {
+        const response = await axios.post(`${host}/content`, {
           typeId: typeValue,
           statusId: statusValue,
           content: contentValue,
@@ -84,7 +89,7 @@ function Board({
         }
         return;
       }
-      const response = await axios.put("http://3.34.220.192:8080/content", {
+      const response = await axios.put(`${host}/content`, {
         id: itemId,
         typeId: typeValue,
         statusId: statusValue,
