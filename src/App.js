@@ -18,11 +18,6 @@ function App() {
   });
   const [selectedContentIds, setSelectedContentIds] = useState([]);
 
-  const host =
-    window.location.hostname === "localhost"
-      ? "http://3.34.220.192:8080"
-      : "api";
-
   const handleFilterChange = (checkboxName) => {
     setFilter((prevValues) => ({
       ...prevValues,
@@ -33,6 +28,11 @@ function App() {
   useEffect(() => {
     const searchItems = async () => {
       try {
+        const host =
+          window.location.hostname === "localhost"
+            ? "http://3.34.220.192:8080"
+            : "api";
+
         const response = await axios.get(
           `${host}/content/search?content=${search}`
         );
@@ -46,11 +46,16 @@ function App() {
     };
 
     searchItems();
-  }, [search, host]);
+  }, [search]);
 
   useEffect(() => {
     const getItems = async () => {
       try {
+        const host =
+          window.location.hostname === "localhost"
+            ? "http://3.34.220.192:8080"
+            : "api";
+
         const response = await axios.get(`${host}/content`);
 
         if (response.data.success) {
@@ -62,7 +67,7 @@ function App() {
     };
 
     getItems();
-  }, [host]);
+  }, []);
 
   return (
     <div className="App">
