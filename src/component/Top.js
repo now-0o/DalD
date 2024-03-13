@@ -18,7 +18,7 @@ function Top({
       return;
     }
     try {
-      const response = await axios.delete("http://3.34.220.192:8080/content", {
+      const response = await axios.delete("https://3.34.220.192:8080/content", {
         data: { ids: selectedContentIds },
       });
 

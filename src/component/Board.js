@@ -72,7 +72,7 @@ function Board({
 
     try {
       if (itemId === "") {
-        const response = await axios.post("http://3.34.220.192:8080/content", {
+        const response = await axios.post("https://3.34.220.192:8080/content", {
           typeId: typeValue,
           statusId: statusValue,
           content: contentValue,
@@ -84,7 +84,7 @@ function Board({
         }
         return;
       }
-      const response = await axios.put("http://3.34.220.192:8080/content", {
+      const response = await axios.put("https://3.34.220.192:8080/content", {
         id: itemId,
         typeId: typeValue,
         statusId: statusValue,
