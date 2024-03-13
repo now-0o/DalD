@@ -8,7 +8,7 @@ function App() {
   const [item, setItem] = useState();
   const [select, setSelect] = useState();
   const [typeId, setTypeId] = useState(10);
-  const [search, setSearch] = useState(10);
+  const [search, setSearch] = useState();
   const [filter, setFilter] = useState({
     s10: false,
     s20: false,
