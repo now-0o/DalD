@@ -13,7 +13,7 @@ function Top({
   setItem,
 }) {
   const deleteContent = async () => {
-    if (selectedContentIds.length == 0) {
+    if (selectedContentIds.length === 0) {
       alert("삭제할 컨텐츠를 선택해주세요!");
       return;
     }
@@ -33,7 +33,7 @@ function Top({
     <div className="headerWrap">
       <header>
         <div className="logoBox">
-          <img src="/imgs/logo.png" className="logo" />
+          <img src="/imgs/logo.png" alt="logo" className="logo" />
         </div>
         <div className="searchBox">
           <input
