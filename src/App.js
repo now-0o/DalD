@@ -46,7 +46,7 @@ function App() {
     };
 
     searchItems();
-  }, [search]);
+  }, [search, host]);
 
   useEffect(() => {
     const getItems = async () => {
@@ -62,7 +62,7 @@ function App() {
     };
 
     getItems();
-  }, []);
+  }, [host]);
 
   return (
     <div className="App">
