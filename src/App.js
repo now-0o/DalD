@@ -18,11 +18,30 @@ function App() {
   });
   const [selectedContentIds, setSelectedContentIds] = useState([]);
 
+  const [type, setType] = useState("");
+  const [status, setStatus] = useState("");
+  const [content, setContent] = useState("");
+  const [itemId, setItemId] = useState("");
+
   const handleFilterChange = (checkboxName) => {
     setFilter((prevValues) => ({
       ...prevValues,
       [checkboxName]: !prevValues[checkboxName],
     }));
+  };
+
+  const re_set = () => {
+    setType("");
+    setStatus("");
+    setContent("");
+    setItemId("");
+  };
+
+  const appearToast = (msg) => {
+    const toast = document.getElementsByClassName("toast")[0];
+    toast.textContent = msg;
+    toast.classList.add("active");
+    setTimeout(() => toast.classList.remove("active"), 1200);
   };
 
   useEffect(() => {
@@ -71,6 +90,7 @@ function App() {
 
   return (
     <div className="App">
+      <div className="toast"></div>
       <Top
         setItem={setItem}
         setSearch={setSearch}
@@ -80,6 +100,8 @@ function App() {
         setSelect={setSelect}
         selectedContentIds={selectedContentIds}
         setSelectedContentIds={setSelectedContentIds}
+        re_set={re_set}
+        appearToast={appearToast}
       />
       <Board
         setItem={setItem}
@@ -89,6 +111,16 @@ function App() {
         select={select}
         selectedContentIds={selectedContentIds}
         setSelectedContentIds={setSelectedContentIds}
+        type={type}
+        setType={setType}
+        status={status}
+        setStatus={setStatus}
+        content={content}
+        setContent={setContent}
+        itemId={itemId}
+        setItemId={setItemId}
+        re_set={re_set}
+        appearToast={appearToast}
       />
     </div>
   );

@@ -130,3 +130,26 @@ body {
 :root {
   --main: #94709c;
 }
+
+.toast {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  width: 300px;
+  height: 25px;
+  background-color: var(--main);
+  z-index: 9999;
+  border-radius: 20px;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  opacity: 0;
+  transition-duration: 0.6s;
+}
+
+.toast.active {
+  opacity: 1;
+}

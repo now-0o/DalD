@@ -10,12 +10,17 @@ function Board({
   select,
   selectedContentIds,
   setSelectedContentIds,
+  type,
+  setType,
+  status,
+  setStatus,
+  content,
+  setContent,
+  itemId,
+  setItemId,
+  re_set,
+  appearToast,
 }) {
-  const [type, setType] = useState("");
-  const [status, setStatus] = useState("");
-  const [content, setContent] = useState("");
-  const [itemId, setItemId] = useState("");
-
   const toggleSelectedContent = (contentId) => {
     if (select) {
       setSelectedContentIds((prevIds) =>
@@ -85,6 +90,7 @@ function Board({
 
         if (response.data.success) {
           setItem(response.data);
+          appearToast("등록이 완료되었습니다.");
           re_set();
         }
         return;
@@ -103,18 +109,12 @@ function Board({
 
       if (response.data.success) {
         setItem(response.data);
+        appearToast("수정이 완료되었습니다.");
         re_set();
       }
     } catch (error) {
       console.error("등록실패");
     }
-  };
-
-  const re_set = () => {
-    setType("");
-    setStatus("");
-    setContent("");
-    setItemId("");
   };
 
   const setInput = (id, type, status, content) => {

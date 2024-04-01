@@ -11,6 +11,8 @@ function Top({
   selectedContentIds,
   setSelectedContentIds,
   setItem,
+  re_set,
+  appearToast,
 }) {
   const deleteContent = async () => {
     if (selectedContentIds.length === 0) {
@@ -29,6 +31,9 @@ function Top({
 
       if (response.data.success) {
         setItem(response.data);
+        appearToast("삭제가 완료되었습니다.");
+        re_set();
+        setSelect(!select);
       }
     } catch (error) {
       console.error("데이터 삭제 실패", error);
