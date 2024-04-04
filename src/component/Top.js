@@ -1,19 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import "./Top.css";
+import { ChromePicker } from "react-color";
 
 function Top({
   setSearch,
-  handleFilterChange,
-  filter,
   select,
   setSelect,
   selectedContentIds,
-  setSelectedContentIds,
   setItem,
   re_set,
   appearToast,
 }) {
+  const [color, setColor] = useState("");
+  const [easterEgg, setEasterEgg] = useState(false);
+
+  const handleChange = (newColor) => {
+    setColor(newColor.rgb);
+
+    document.documentElement.style.setProperty(
+      "--main",
+      `rgba(${newColor.rgb.r}, ${newColor.rgb.g}, ${newColor.rgb.b}, ${newColor.rgb.a})`
+    );
+    document.documentElement.style.setProperty(
+      "--shadow",
+      `rgba(${newColor.rgb.r}, ${newColor.rgb.g}, ${newColor.rgb.b}, 0.3)`
+    );
+  };
+
   const deleteContent = async () => {
     if (selectedContentIds.length === 0) {
       alert("삭제할 컨텐츠를 선택해주세요!");
@@ -39,11 +53,32 @@ function Top({
       console.error("데이터 삭제 실패", error);
     }
   };
+
+  const chkEaster = (e) => {
+    if (e.target.value === "진진이야") {
+      setEasterEgg(true);
+    } else {
+      setEasterEgg(false);
+      document.querySelector(".chrome-picker").classList.remove("active");
+    }
+  };
+
+  const onPicker = () => {
+    if (easterEgg) {
+      document.querySelector(".chrome-picker").classList.toggle("active");
+    }
+  };
+
   return (
     <div className="headerWrap">
       <header>
         <div className="logoBox">
-          <img src="/imgs/logo.png" alt="logo" className="logo" />
+          <img
+            src="/imgs/logo.png"
+            alt="logo"
+            className="logo"
+            onClick={onPicker}
+          />
         </div>
         <div className="searchBox">
           <input
@@ -53,11 +88,11 @@ function Top({
             className="search"
             placeholder="검색어를 입력하세요"
             autoComplete="off"
-            onKeyUp={(event) => setSearch(event.target.value)}
+            onKeyUp={(event) => {
+              setSearch(event.target.value);
+              chkEaster(event);
+            }}
           />
-          <button name="filterBtn" className="filterBtn">
-            필터
-          </button>
         </div>
         <div className="topBtn">
           <div
@@ -70,53 +105,11 @@ function Top({
             삭제
           </div>
         </div>
-        <div className="filterBox">
-          <div className="filterCon">
-            <label for="s10">수배중</label>
-            <input
-              id="s10"
-              type="checkbox"
-              checked={filter.s10}
-              onChange={() => handleFilterChange("s10")}
-            />
-          </div>
-          <div className="filterCon">
-            <label for="s20">섭외중</label>
-            <input
-              id="s20"
-              type="checkbox"
-              checked={filter.s20}
-              onChange={() => handleFilterChange("s20")}
-            />
-          </div>
-          <div className="filterCon">
-            <label for="s30">헌팅.촬영가능</label>
-            <input
-              id="s30"
-              type="checkbox"
-              checked={filter.s30}
-              onChange={() => handleFilterChange("s30")}
-            />
-          </div>
-          <div className="filterCon">
-            <label for="s40">거절</label>
-            <input
-              id="s40"
-              type="checkbox"
-              checked={filter.s40}
-              onChange={() => handleFilterChange("s40")}
-            />
-          </div>
-          <div className="filterCon">
-            <label for="s50">기타</label>
-            <input
-              id="s50"
-              type="checkbox"
-              checked={filter.s50}
-              onChange={() => handleFilterChange("s50")}
-            />
-          </div>
-        </div>
+        <ChromePicker
+          className="colorPicker"
+          color={color}
+          onChange={handleChange}
+        />
       </header>
     </div>
   );

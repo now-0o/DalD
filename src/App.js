@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Top from "./component/Top.js";
 import Board from "./component/Board.js";
 import axios from "axios";
@@ -44,20 +44,25 @@ function App() {
     setTimeout(() => toast.classList.remove("active"), 1200);
   };
 
+  const isMounted = useRef(false);
+
   useEffect(() => {
     const searchItems = async () => {
       try {
-        const host =
-          window.location.hostname === "localhost"
-            ? "http://3.34.220.192:8080"
-            : "api";
+        if (isMounted.current) {
+          const host =
+            window.location.hostname === "localhost"
+              ? "http://3.34.220.192:8080"
+              : "api";
+          const response = await axios.get(
+            `${host}/content/search?content=${search}`
+          );
 
-        const response = await axios.get(
-          `${host}/content/search?content=${search}`
-        );
-
-        if (response.data.success) {
-          setItem(response.data);
+          if (response.data.success) {
+            setItem(response.data);
+          }
+        } else {
+          isMounted.current = true;
         }
       } catch (error) {
         console.error("검색 실패", error);

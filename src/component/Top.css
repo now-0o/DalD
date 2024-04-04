@@ -30,6 +30,7 @@ header {
 
 .logo {
   width: 60px;
+  cursor: pointer;
 }
 
 .searchBox {
@@ -42,17 +43,9 @@ header {
 .search {
   outline: none;
   border: none;
-  border-radius: 5px 0 0 5px;
+  border-radius: 5px;
   width: 450px;
   padding-left: 10px;
-}
-
-.filterBtn {
-  background-color: white;
-  border: 0;
-  border-left: 1px solid #c2c2c2;
-  border-radius: 0 5px 5px 0;
-  width: 50px;
 }
 
 .filterBox {
@@ -116,4 +109,16 @@ header {
 
 .delBtn:hover {
   background-color: #d34545;
+}
+
+.chrome-picker {
+  position: absolute;
+  bottom: -250px;
+  left: 35px;
+  z-index: 99999;
+  display: none;
+}
+
+.chrome-picker.active {
+  display: block;
 }

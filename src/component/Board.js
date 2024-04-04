@@ -148,6 +148,20 @@ function Board({
         >
           해외
         </div>
+        <div
+          className={`tabBtn board ${typeId === 40 ? "active" : ""}`}
+          data-type={40}
+          onClick={() => setTypeId(40)}
+        >
+          목요일
+        </div>
+        <div
+          className={`tabBtn board ${typeId === 50 ? "active" : ""}`}
+          data-type={50}
+          onClick={() => setTypeId(50)}
+        >
+          금요일
+        </div>
       </div>
 
       <main>
@@ -189,6 +203,8 @@ function Board({
           <option value="10">일반</option>
           <option value="20">음식</option>
           <option value="30">해외</option>
+          <option value="40">목요일</option>
+          <option value="50">금요일</option>
         </select>
 
         <select
