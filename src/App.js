@@ -102,14 +102,15 @@ function App() {
 
         if (response.data.success) {
           if (response.data) {
-            setColor(response.data);
+            setColor(response.data.data);
+
             document.documentElement.style.setProperty(
               "--main",
-              `rgba(${response.data.red}, ${response.data.green}, ${response.data.blue}, ${response.data.alpha})`
+              `rgba(${response.data.data.red}, ${response.data.data.green}, ${response.data.data.blue}, ${response.data.data.alpha})`
             );
             document.documentElement.style.setProperty(
               "--shadow",
-              `rgba(${response.data.red}, ${response.data.green}, ${response.data.blue}, 0.3)`
+              `rgba(${response.data.data.red}, ${response.data.data.green}, ${response.data.data.blue}, 0.3)`
             );
           }
         }

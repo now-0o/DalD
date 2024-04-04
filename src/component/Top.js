@@ -40,7 +40,7 @@ function Top({
 
       const response = await axios.post(`${host}/color`, {
         red: rgba.r,
-        green: rgba.b,
+        green: rgba.g,
         blue: rgba.b,
         alpha: rgba.a,
       });
