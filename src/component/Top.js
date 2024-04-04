@@ -11,8 +11,9 @@ function Top({
   setItem,
   re_set,
   appearToast,
+  color,
+  setColor,
 }) {
-  const [color, setColor] = useState("");
   const [easterEgg, setEasterEgg] = useState(false);
 
   const handleChange = (newColor) => {
@@ -26,6 +27,26 @@ function Top({
       "--shadow",
       `rgba(${newColor.rgb.r}, ${newColor.rgb.g}, ${newColor.rgb.b}, 0.3)`
     );
+
+    insertColor(newColor.rgb);
+  };
+
+  const insertColor = async (rgba) => {
+    try {
+      const host =
+        window.location.hostname === "localhost"
+          ? "http://3.34.220.192:8080"
+          : "api";
+
+      const response = await axios.post(`${host}/color`, {
+        red: rgba.r,
+        green: rgba.b,
+        blue: rgba.b,
+        alpha: rgba.a,
+      });
+    } catch (error) {
+      console.error("색상값 저장 실패", error);
+    }
   };
 
   const deleteContent = async () => {

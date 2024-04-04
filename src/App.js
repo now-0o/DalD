@@ -22,6 +22,7 @@ function App() {
   const [status, setStatus] = useState("");
   const [content, setContent] = useState("");
   const [itemId, setItemId] = useState("");
+  const [color, setColor] = useState({});
 
   const handleFilterChange = (checkboxName) => {
     setFilter((prevValues) => ({
@@ -90,7 +91,35 @@ function App() {
       }
     };
 
+    const getColor = async () => {
+      try {
+        const host =
+          window.location.hostname === "localhost"
+            ? "http://3.34.220.192:8080"
+            : "api";
+
+        const response = await axios.get(`${host}/color`);
+
+        if (response.data.success) {
+          if (response.data) {
+            setColor(response.data);
+            document.documentElement.style.setProperty(
+              "--main",
+              `rgba(${response.data.red}, ${response.data.green}, ${response.data.blue}, ${response.data.alpha})`
+            );
+            document.documentElement.style.setProperty(
+              "--shadow",
+              `rgba(${response.data.red}, ${response.data.green}, ${response.data.blue}, 0.3)`
+            );
+          }
+        }
+      } catch (error) {
+        console.error("색상 불러오기 실패", error);
+      }
+    };
+
     getItems();
+    getColor();
   }, []);
 
   return (
@@ -107,6 +136,8 @@ function App() {
         setSelectedContentIds={setSelectedContentIds}
         re_set={re_set}
         appearToast={appearToast}
+        color={color}
+        setColor={setColor}
       />
       <Board
         setItem={setItem}
