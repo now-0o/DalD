@@ -44,6 +44,10 @@ function Top({
         blue: rgba.b,
         alpha: rgba.a,
       });
+
+      if (response.success) {
+        console.log("색상값 저장 실패");
+      }
     } catch (error) {
       console.error("색상값 저장 실패", error);
     }
