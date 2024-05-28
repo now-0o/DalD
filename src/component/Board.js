@@ -153,14 +153,14 @@ function Board({
           data-type={40}
           onClick={() => setTypeId(40)}
         >
-          목요일
+          거절
         </div>
         <div
           className={`tabBtn board ${typeId === 50 ? "active" : ""}`}
           data-type={50}
           onClick={() => setTypeId(50)}
         >
-          금요일
+          나중에
         </div>
       </div>
 
@@ -203,8 +203,8 @@ function Board({
           <option value="10">일반</option>
           <option value="20">음식</option>
           <option value="30">해외</option>
-          <option value="40">목요일</option>
-          <option value="50">금요일</option>
+          <option value="40">거절</option>
+          <option value="50">나중에</option>
         </select>
 
         <select
